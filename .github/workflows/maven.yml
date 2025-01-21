@@ -36,3 +36,14 @@ jobs:
       # Step 4: Executar os testes com Maven
       - name: Run Maven tests
         run: mvn clean test
+
+      # Step 5: Compactar os relatórios de teste e Fazer upload dos artefatos dos testes
+      - name: Create new scratch file from selection
+        run: zip -r test-reports.zip target/report
+
+      # Step 6: Fazer upload dos artefatos dos testes
+      - name: Upload test reports
+        uses: actions/upload-artifact@v3
+        with:
+          name: cucumber-test-reports
+          path: test-reports.zip
